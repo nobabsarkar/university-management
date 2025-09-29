@@ -145,7 +145,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
 studentSchema.pre('save', async function (next) {
   // console.log(this, 'pre hook : we will save the data');
 
-  const user = this;
+  const user = this; // doc
 
   // hashing password and save into DB
   user.password = await bcrypt.hash(
@@ -157,8 +157,10 @@ studentSchema.pre('save', async function (next) {
 });
 
 // post save middleware / hook
-studentSchema.post('save', function () {
-  console.log(this, 'post hook : we save our data');
+studentSchema.post('save', function (doc, next) {
+  doc.password = '';
+
+  next();
 });
 
 // creating a custom static method
