@@ -163,6 +163,11 @@ studentSchema.post('save', function (doc, next) {
   next();
 });
 
+// Query Middleware
+// studentSchema.pre('find', function(next){
+
+// })
+
 // creating a custom static method
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
