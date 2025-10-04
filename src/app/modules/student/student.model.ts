@@ -10,6 +10,7 @@ import {
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
+// this is model
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
