@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextFunction, Request, Response } from 'express';
 import { UserServices } from './user.service';
+import sendResponse from '../../utils/sendResponse';
+import { StatusCodes } from 'http-status-codes';
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    // creating a schema validation using zod
-
     const { password, student: StudentData } = req.body;
-
-    // data validation using Joi
-    // const { error, value } = studentValidationSchema.validate(StudentData);
 
     // data validation using zod
     // const zodParseData = studentValidationSchema.parse(StudentData);
@@ -17,24 +20,23 @@ const createStudent = async (req: Request, res: Response) => {
       StudentData,
     );
 
-    // if (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     message: 'someting went wrong',
-    //     error: error.details,
-    //   });
-    // }
+    // res.status(200).json({
+    //   success: true,
+    //   message: 'Student is created successfully',
+    //   data: result,
+    // });
 
-    res.status(200).json({
+    sendResponse(res, {
       success: true,
+      statusCode: StatusCodes.OK,
       message: 'Student is created successfully',
       data: result,
     });
   } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'something went wrong',
-      error: error,
-    });
+    next(error);
   }
+};
+
+export const UserControllers = {
+  createStudent,
 };
