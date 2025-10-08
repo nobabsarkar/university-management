@@ -1,8 +1,10 @@
+import { UserServices } from './user.service';
+
 const createStudent = async (req: Request, res: Response) => {
   try {
     // creating a schema validation using zod
 
-    const { student: StudentData } = req.body;
+    const { password, student: StudentData } = req.body;
 
     // data validation using Joi
     // const { error, value } = studentValidationSchema.validate(StudentData);
@@ -10,7 +12,10 @@ const createStudent = async (req: Request, res: Response) => {
     // data validation using zod
     // const zodParseData = studentValidationSchema.parse(StudentData);
 
-    const result = await StudentServices.createStudentIntoDB(zodParseData);
+    const result = await UserServices.createStudentIntoDB(
+      password,
+      StudentData,
+    );
 
     // if (error) {
     //   res.status(500).json({
