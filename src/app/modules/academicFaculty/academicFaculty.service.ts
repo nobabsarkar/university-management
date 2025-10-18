@@ -20,7 +20,7 @@ const updateAcademicFacultyIntoDB = async (
   id: string,
   payload: Partial<TAcademicFaculty>,
 ) => {
-  const result = await AcademicFaculty.findOneAndUpdate({ id }, payload, {
+  const result = await AcademicFaculty.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
   return result;
