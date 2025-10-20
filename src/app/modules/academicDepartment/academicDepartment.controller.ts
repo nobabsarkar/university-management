@@ -15,7 +15,7 @@ const createAcademicDepartment = catchAsync(async (req, res) => {
   });
 });
 
-const getAllAcademicDepartment = catchAsync(async (req, res) => {
+const getAllAcademicDepartments = catchAsync(async (req, res) => {
   const result =
     await AcademicDepartmentServices.getAllAcademicDepartmentFromDB();
 
@@ -53,14 +53,14 @@ const updateAcademicDepartment = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Update Academic Department is successfully!',
+    message: 'Academic Department is Updated successfully!',
     data: result,
   });
 });
 
 export const AcademicDepartmentControllers = {
   createAcademicDepartment,
-  getAllAcademicDepartment,
+  getAllAcademicDepartments,
   getSingleAcademicDepartment,
   updateAcademicDepartment,
 };
