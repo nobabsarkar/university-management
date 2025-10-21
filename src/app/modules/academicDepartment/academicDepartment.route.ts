@@ -23,7 +23,6 @@ router.patch(
   validateRequest(
     AcademicDepartmentValidation.updateAcademicDepartmentValidationSchema,
   ),
-
   AcademicDepartmentControllers.updateAcademicDepartment,
 );
 
