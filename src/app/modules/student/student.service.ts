@@ -29,6 +29,7 @@ const getSingleStudentFromDB = async (id: string) => {
   return result;
 };
 
+// delete student using transaction and rollback
 const deleteStudentFromDB = async (id: string) => {
   const session = await mongoose.startSession();
 
