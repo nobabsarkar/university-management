@@ -32,7 +32,36 @@ const getSingleStudentFromDB = async (id: string) => {
 };
 
 const updateStudentIntoDB = async (id: string, payload: Partial<TStudent>) => {
-  const result = await Student.findOneAndUpdate({ id }, payload);
+  const { name, guardian, localGuardian, ...remainingStudentData } = payload;
+
+  const modifedUpdatedData: Record<string, unknown> = {
+    ...remainingStudentData,
+  };
+
+  if (name && Object.keys(name).length) {
+    for (const [key, value] of Object.entries(name)) {
+      modifedUpdatedData[`name.${key}`] = value;
+    }
+  }
+
+  if (guardian && Object.keys(guardian).length) {
+    for (const [key, value] of Object.entries(guardian)) {
+      modifedUpdatedData[`guardian.${key}`] = value;
+    }
+  }
+
+  if (localGuardian && Object.keys(localGuardian).length) {
+    for (const [key, value] of Object.entries(localGuardian)) {
+      modifedUpdatedData[`localGuardian.${key}`] = value;
+    }
+  }
+
+  console.log(modifedUpdatedData);
+
+  const result = await Student.findOneAndUpdate({ id }, modifedUpdatedData, {
+    new: true,
+    runValidators: true,
+  });
 
   return result;
 };
@@ -68,10 +97,11 @@ const deleteStudentFromDB = async (id: string) => {
     await session.endSession();
 
     return deletedStudent;
-  } catch (error) {
+  } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    console.log(error);
+    console.log(err);
+    throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to delete student');
   }
 };
 
