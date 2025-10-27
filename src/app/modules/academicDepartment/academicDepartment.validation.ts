@@ -2,7 +2,7 @@ import z from 'zod';
 
 const createAcademicDepartmentValidationSchema = z.object({
   body: z.object({
-    name: z.string(),
+    name: z.string({ message: 'Name is required' }),
     academicFaculty: z.string(),
   }),
 });
