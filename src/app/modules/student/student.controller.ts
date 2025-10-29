@@ -16,7 +16,7 @@ const getSingleStudent = catchAsync(async (req, res) => {
 });
 
 const getAllStudens = catchAsync(async (req, res) => {
-  const result = await StudentServices.getAllStudentsFromDB();
+  const result = await StudentServices.getAllStudentsFromDB(req.query);
 
   sendResponse(res, {
     success: true,
