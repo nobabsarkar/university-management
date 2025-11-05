@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 import config from '../config';
 import handleZodError from '../errors/handleZodError';
