@@ -13,8 +13,6 @@ router.post(
 
 router.get('/:id', CourseControllers.getSinglecourse);
 
-router.get('/', CourseControllers.getAllcourses);
-
 router.patch(
   '/:id',
   validateRequest(CourseValidations.updateCourseValidationSchema),
@@ -22,5 +20,12 @@ router.patch(
 );
 
 router.delete('/:id', CourseControllers.deleteCourse);
+
+router.put(
+  '/:courseId/assign-faculties',
+  CourseControllers.assignFacultiesWithcourse,
+);
+
+router.get('/', CourseControllers.getAllcourses);
 
 export const CourseRoutes = router;
