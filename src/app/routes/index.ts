@@ -32,7 +32,7 @@ const moduleRoutes = [
   },
   {
     path: '/faculties',
-    route: FacultyRoutes,
+    route: UserRoutes,
   },
   {
     path: '/courses',

@@ -89,7 +89,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
 
   // find academic department info
   const academicDepartment = await AcademicDepartment.findById(
-    payload.academicDepartment,
+    payload?.academicDepartment,
   );
 
   if (!academicDepartment) {
