@@ -19,7 +19,7 @@ const getAllSemesterRegistrations = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Semester Registration is created successfully!',
+    message: 'Semester Registration are retrived successfully!',
     data: result,
   });
 });
@@ -31,7 +31,7 @@ const getSingleSemesterRegistration = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Semester Registration is created successfully!',
+    message: 'Semester Registration are retrived successfully!',
     data: result,
   });
 });
@@ -43,7 +43,7 @@ const updateSemesterRegistration = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Semester Registration is created successfully!',
+    message: 'Semester Registration are update successfully!',
     data: result,
   });
 });
