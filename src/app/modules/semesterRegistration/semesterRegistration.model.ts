@@ -26,6 +26,6 @@ const semesterRegistrationSchema = new mongoose.Schema<TSemesterRegistration>(
 );
 
 export const SemesterRegistration = model<TSemesterRegistration>(
-  'academicSemester',
+  'SemesterRegistration',
   semesterRegistrationSchema,
 );

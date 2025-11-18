@@ -1,9 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
+import { SemesterRegistrationService } from './semesterRegister.service';
 
 const createSemesterRegistration = catchAsync(async (req, res) => {
-  const result = 'hello';
+  const result =
+    await SemesterRegistrationService.createSemesterRegisrationIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
