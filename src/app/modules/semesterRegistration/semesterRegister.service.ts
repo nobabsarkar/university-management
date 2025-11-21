@@ -4,6 +4,7 @@ import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TSemesterRegistration } from './semesterRegistration.interface';
 import { SemesterRegistration } from './semesterRegistration.model';
 
+// create semester registration
 const createSemesterRegisrationIntoDB = async (
   payload: TSemesterRegistration,
 ) => {
