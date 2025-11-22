@@ -36,8 +36,15 @@ const createSemesterRegisrationIntoDB = async (
   const result = await SemesterRegistration.create(payload);
   return result;
 };
-const getAllSemesterRegisrationsFromDB = async () => {};
-const getSingleSemesterRegisrationFromDB = async () => {};
+const getAllSemesterRegisrationsFromDB = async () => {
+  const result = await SemesterRegistration.find();
+  return result;
+};
+
+const getSingleSemesterRegisrationFromDB = async (id: string) => {
+  const result = await SemesterRegistration.findById(id);
+  return result;
+};
 const updateSemesterRegisrationInto = async () => {};
 
 export const SemesterRegistrationService = {

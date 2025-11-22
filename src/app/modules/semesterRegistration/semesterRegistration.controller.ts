@@ -16,7 +16,8 @@ const createSemesterRegistration = catchAsync(async (req, res) => {
 });
 
 const getAllSemesterRegistrations = catchAsync(async (req, res) => {
-  const result = 'hello';
+  const result =
+    await SemesterRegistrationService.getAllSemesterRegisrationsFromDB();
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -28,7 +29,8 @@ const getAllSemesterRegistrations = catchAsync(async (req, res) => {
 
 const getSingleSemesterRegistration = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = id;
+  const result =
+    await SemesterRegistrationService.getSingleSemesterRegisrationFromDB(id);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
