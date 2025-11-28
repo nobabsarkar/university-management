@@ -28,4 +28,4 @@ router.patch(
   SemesterRegistrationController.updateSemesterRegistration,
 );
 
-export const semesterRegistrationRoutes = router;
+export const SemesterRegistrationRoutes = router;
