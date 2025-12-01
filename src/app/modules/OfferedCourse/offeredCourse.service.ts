@@ -15,6 +15,10 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCoure) => {
     academicDepartment,
     course,
     faculty,
+    section,
+    days,
+    startTime,
+    endTime,
   } = payload;
 
   // check if the semester registration id is exists
@@ -50,6 +54,63 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCoure) => {
   if (!isFacultyExits) {
     throw new AppError(StatusCodes.NOT_FOUND, 'Faculty not found!');
   }
+
+  // check if the department is belong to the faculty
+  const isDepartmentBelongToFaculty = await AcademicDepartment.findOne({
+    _id: academicDepartment,
+    academicFaculty,
+  });
+
+  if (!isDepartmentBelongToFaculty) {
+    throw new AppError(
+      StatusCodes.BAD_REQUEST,
+      `This ${isAcademicDepartmentExits?.name} is not belong to this ${isAcademicFacultyExits?.name}`,
+    );
+  }
+
+  // check if the same offered course same section in same registered semester exists
+  const isSameOfferedCourseExistsWithSameRegisterSemesterWithSameSection =
+    await OfferedCourse.findOne({
+      semesterRegistration,
+      course,
+      section,
+    });
+
+  if (isSameOfferedCourseExistsWithSameRegisterSemesterWithSameSection) {
+    throw new AppError(
+      StatusCodes.BAD_REQUEST,
+      `Offered course with same section is already exist!`,
+    );
+  }
+
+  // get the schedules of the faculties
+  const assignedSchedules = await OfferedCourse.find({
+    semesterRegistration,
+    faculty,
+    days: { $in: days },
+  }).select('days startTime endTime');
+
+  const newSchedule = {
+    days,
+    startTime,
+    endTime,
+  };
+
+  assignedSchedules.forEach((schedule) => {
+    const existingStartTime = new Date(`1970-01-01T${schedule.startTime}`);
+    const existingEndTime = new Date(`1970-01-01T${schedule.endTime}`);
+    const newStartTime = new Date(`1970-01-01T${newSchedule.startTime}`);
+    const newEndTime = new Date(`1970-01-01T${newSchedule.endTime}`);
+
+    // 10:30 - 12:30
+    // 9:30 - 11:30
+    if (newStartTime < existingEndTime && newEndTime > existingStartTime) {
+      throw new AppError(
+        StatusCodes.CONFLICT,
+        `This faculty is not available at that time ! Choose other time or day`,
+      );
+    }
+  });
 
   const result = await OfferedCourse.create({ ...payload, academicSemester });
   return result;
