@@ -60,7 +60,7 @@ const deleteOfferedCourseFromDB = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'OfferedCourse deleted successfully',
+    message: 'Offered Course deleted successfully',
     data: result,
   });
 });

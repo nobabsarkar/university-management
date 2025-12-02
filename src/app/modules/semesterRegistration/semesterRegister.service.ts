@@ -192,7 +192,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
     await session.commitTransaction();
     await session.endSession();
 
-    return null;
+    return deletedSemisterRegistration;
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
