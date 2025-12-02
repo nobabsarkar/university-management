@@ -18,4 +18,6 @@ export interface UserModel extends Model<TUser> {
     plainTextPassword: string,
     hashedPassword: string,
   ): Promise<boolean>;
+
+  // isDeleted(): Promise<boolean>;
 }
