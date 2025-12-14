@@ -189,7 +189,29 @@ const forgetPassword = async (userId: string) => {
   const resetUILink = `${config.reset_pass_ui_link}?id=${user?.id}&token=${resetToken}`;
 
   sendEmail(user?.email, resetUILink);
-  console.log(resetUILink);
+};
+
+const resetPassword = async (
+  payload: { id: string; newPassword: string },
+  token,
+) => {
+  // checking if the user is exist
+  const user = await User.isUserExistsByCustomId(payload?.id);
+  if (!user) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'This user is not found!');
+  }
+
+  // // cheching if the user is already deleted
+  const isDeleted = user?.isDeleted;
+  if (isDeleted) {
+    throw new AppError(StatusCodes.FORBIDDEN, 'This user is deleted!');
+  }
+
+  // // cheching if the user is already blocked
+  const userStatus = user?.status;
+  if (userStatus === 'blocked') {
+    throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked!');
+  }
 };
 
 export const AuthServices = {
@@ -197,4 +219,5 @@ export const AuthServices = {
   changePassword,
   refreshToken,
   forgetPassword,
+  resetPassword,
 };
