@@ -19,7 +19,7 @@ import { TFaculty } from '../Faculty/faculty.interface';
 import { Faculty } from '../Faculty/faculty.model';
 import { TAdmin } from '../Admin/admin.interface';
 import { Admin } from '../Admin/admin.model';
-import { verifyToken } from '../Auth/auth.utils';
+import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   //create a user object
@@ -52,6 +52,9 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
     // set manually generated id
     userData.id = await generatedStudentId(admissionSemester);
+
+    // send image to cloudinary
+    sendImageToCloudinary();
 
     // create a user (transaction-1)
     const newUser = await User.create([userData], { session }); // array
@@ -189,24 +192,30 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   }
 };
 
-const getMe = async (token: string) => {
-  const decoded = verifyToken(token, config.jwt_access_secret as string);
+const getMe = async (userId: string, role: string) => {
+  // const decoded = verifyToken(token, config.jwt_access_secret as string);
 
-  const { userId, role } = decoded;
+  // const { userId, role } = decoded;
 
   let result = null;
 
   if (role === 'student') {
-    result = await Student.findOne({ id: userId });
+    result = await Student.findOne({ id: userId }).populate('user');
   }
 
   if (role === 'admin') {
-    result = await Admin.findOne({ id: userId });
+    result = await Admin.findOne({ id: userId }).populate('user');
   }
 
   if (role === 'faculty') {
-    result = await Faculty.findOne({ id: userId });
+    result = await Faculty.findOne({ id: userId }).populate('user');
   }
+
+  return result;
+};
+
+const changeStatus = async (id: string, payload: { status: string }) => {
+  const result = await User.findByIdAndUpdate(id, payload, { new: true });
 
   return result;
 };
@@ -216,4 +225,5 @@ export const UserServices = {
   createFacultyIntoDB,
   createAdminIntoDB,
   getMe,
+  changeStatus,
 };
