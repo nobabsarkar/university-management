@@ -1,10 +1,11 @@
 import { v2 as cloudinary } from 'cloudinary';
+import config from '../config';
 
 export const sendImageToCloudinary = () => {
   cloudinary.config({
-    cloud_name: 'dei2eoj4b',
-    api_key: '959959466236624',
-    api_secret: 'good',
+    cloud_name: config.cloudinary_cloud_name,
+    api_key: config.cloudinary_api_key,
+    api_secret: config.cloudinary_api_secret,
   });
 
   cloudinary.uploader.upload(
