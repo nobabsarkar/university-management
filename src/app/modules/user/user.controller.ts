@@ -5,7 +5,7 @@ import catchAsync from '../../utils/catchAsync';
 
 const createStudent = catchAsync(async (req, res) => {
   console.log(req.file, 'file');
-  console.log(req.body.data);
+  console.log(req.body);
 
   // const { password, student: StudentData } = req.body;
 
