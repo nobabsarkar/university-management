@@ -18,7 +18,7 @@ const semesterRegistrationSchema = new mongoose.Schema<TSemesterRegistration>(
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     minCredit: { type: Number, default: 3 },
-    maxcredit: { type: Number, default: 15 },
+    maxCredit: { type: Number, default: 15 },
   },
   {
     timestamps: true,

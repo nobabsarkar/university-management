@@ -6,5 +6,5 @@ export type TSemesterRegistration = {
   startDate: Date;
   endDate: Date;
   minCredit: number;
-  maxcredit: number;
+  maxCredit: number;
 };
