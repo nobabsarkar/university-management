@@ -87,6 +87,8 @@ const createEnrolledCourseIntoDB = async (
   const totalCredits =
     enrolledCourses?.length > 0 ? enrolledCourses[0]?.totalEnrolledCredits : 0;
 
+  console.log(totalCredits);
+
   if (
     totalCredits &&
     semesterRegistration?.maxCredit &&
