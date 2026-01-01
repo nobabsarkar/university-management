@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 const academicDepartmentSchema = new Schema<TAcademicDepartment>(
   {
     name: { type: String, required: true, unique: true },
-    academicFaculty: { type: Schema.ObjectId, ref: 'AcademicFaculty' },
+    academicFaculty: { type: Schema.ObjectId, ref: 'academicFaculty' },
   },
   {
     timestamps: true,
@@ -46,6 +46,6 @@ academicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
 });
 
 export const AcademicDepartment = model<TAcademicDepartment>(
-  'academicDepartment',
+  'AcademicDepartment',
   academicDepartmentSchema,
 );

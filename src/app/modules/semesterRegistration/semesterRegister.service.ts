@@ -55,7 +55,8 @@ const createSemesterRegisrationIntoDB = async (
   const result = await SemesterRegistration.create(payload);
   return result;
 };
-const getAllSemesterRegisrationsFromDB = async (
+
+const getAllSemesterRegistrationsFromDB = async (
   query: Record<string, unknown>,
 ) => {
   const semesterRegistrationQuery = new QueryBuilder(
@@ -68,7 +69,11 @@ const getAllSemesterRegisrationsFromDB = async (
     .fields();
 
   const result = await semesterRegistrationQuery.modelQuery;
-  return result;
+  const meta = await semesterRegistrationQuery.countTotal();
+  return {
+    result,
+    meta,
+  };
 };
 
 const getSingleSemesterRegisrationFromDB = async (id: string) => {
@@ -202,7 +207,8 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
 
 export const SemesterRegistrationService = {
   createSemesterRegisrationIntoDB,
-  getAllSemesterRegisrationsFromDB,
+  // getAllSemesterRegisrationsFromDB,
+  getAllSemesterRegistrationsFromDB,
   getSingleSemesterRegisrationFromDB,
   updateSemesterRegisrationIntoDB,
   deleteSemesterRegistrationFromDB,

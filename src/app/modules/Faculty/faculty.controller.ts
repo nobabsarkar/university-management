@@ -3,6 +3,18 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { FacultyServices } from './faculty.service';
 
+const getAllFaculties = catchAsync(async (req, res) => {
+  const result = await FacultyServices.getAllFacultiesFromDB(req.query);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Faculties are retrieved succesfully',
+    meta: result.meta,
+    data: result.result,
+  });
+});
+
 const getSingleFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await FacultyServices.getSingleFacultyFromDB(id);
@@ -11,19 +23,6 @@ const getSingleFaculty = catchAsync(async (req, res) => {
     statusCode: StatusCodes.OK,
     success: true,
     message: 'Faculty is retrieved succesfully',
-    data: result,
-  });
-});
-
-const getAllFaculties = catchAsync(async (req, res) => {
-  console.log(req.cookies);
-
-  const result = await FacultyServices.getAllFacultiesFromDB(req.query);
-
-  sendResponse(res, {
-    statusCode: StatusCodes.OK,
-    success: true,
-    message: 'Faculties are retrieved succesfully',
     data: result,
   });
 });
