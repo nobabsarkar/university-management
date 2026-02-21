@@ -9,7 +9,6 @@ import { TUser } from './user.interface';
 import { User } from './user.model';
 import {
   generateAdminId,
-  // generateAdminId,
   generatedStudentId,
   generateFacultyId,
 } from './user.utils';
