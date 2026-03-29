@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 const academicDepartmentSchema = new Schema<TAcademicDepartment>(
   {
     name: { type: String, required: true, unique: true },
-    academicFaculty: { type: Schema.ObjectId, ref: 'academicFaculty' },
+    academicFaculty: { type: Schema.ObjectId, ref: 'AcademicFaculty' },
   },
   {
     timestamps: true,
